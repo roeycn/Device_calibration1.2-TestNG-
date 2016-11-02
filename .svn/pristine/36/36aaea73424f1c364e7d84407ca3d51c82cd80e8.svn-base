@@ -1,0 +1,111 @@
+package com.mv4d.oxalis;
+
+import io.appium.java_client.android.AndroidKeyCode;
+
+import java.net.MalformedURLException;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.*;
+import Activities.MainScreen;
+
+public class TestCase6Manual extends com.mv4d.oxalis.BeforeAfterTest {
+	
+//static WebDriver driver;
+MainScreen objMainScreen;			
+WebDriverWait wait;
+WebElement bOkFailDialog;
+	
+@Test
+public void testCase6() throws MalformedURLException ,InterruptedException {
+	  
+         System.out.println("Starting Test...");	
+         // wait till oxalis lunch (splash screen is over..)	
+		Thread.sleep(10000);										
+		//Create Activity object
+		objMainScreen = new MainScreen(driver);
+		//Verify button text
+		String buttonText = objMainScreen.getCheckBox();
+		if (buttonText==null){
+			System.out.println("Finishing test- it seems like splash screen is freeze and the app doesnt start");
+			Assert.fail();
+		}
+		
+		
+		objMainScreen.clickAutoManualButton();
+		
+		Thread.sleep(2000);
+		// ManualGainScroll
+		
+		List<WebElement> numbers = driver.findElements(By.className("android.widget.NumberPicker"));
+	 
+		 for(WebElement number : numbers) {
+	            System.out.println("Number of NumberPickers is: " +number.getTagName());
+	        }
+		 
+		 // set NumberPicker data
+		 
+		 
+		 
+		 driver.findElement(By.xpath("//android.widget.LinearLayout[@index='0']")).sendKeys("1");
+		 
+		 
+		// driver.findElement(By.xpath("//android.widget.NumberPicker[@index='0']")).sendKeys("1"); 
+		
+		 
+			
+		
+		
+	
+	    	driver.scrollTo("8");
+			WebElement row = (WebElement) driver.findElementByName("8");
+			Point Gainlocation = row.getLocation();
+		    Point Gaincenter = getCenter(row);
+		    
+		    System.out.println("Gainlocation: "+Gainlocation );
+		    System.out.println("center:  "+Gaincenter );
+		    
+		  //perform swipe gesture
+		    driver.swipe(Gaincenter.getX(), Gaincenter.getY(), Gaincenter.getX(), Gaincenter.getY()+300, 0);
+		    Thread.sleep(1500);
+		    driver.swipe(Gaincenter.getX(), Gaincenter.getY(), Gaincenter.getX(), Gaincenter.getY()-300, 0);
+		    Thread.sleep(1500);
+	
+}
+
+
+		
+		    
+/*		    
+	    int y=-300;
+	    int counter = 0 ;		    
+			   for (counter=1 ; counter<10 ; counter++){   			  
+				   System.out.println("perform swipe gesture number: " + counter);
+				    driver.swipe(Gaincenter.getX(), Gaincenter.getY(), Gaincenter.getX(), Gaincenter.getY()+y, 0);
+				    Thread.sleep(500);				   		   
+				    if (counter%4==0 && counter%8!=0){
+				    	y=300;
+				    	System.out.println("changing direction");				 		 
+					 }
+				    if (counter%8==0){
+						 y=-300;
+						 System.out.println("changing direction");								 
+					 }    		    		    
+		    Thread.sleep(2000);	
+			   }			   
+ 
+  */
+		    
+		    
+
+public Point getCenter(WebElement element) {
+    Point upperLeft = element.getLocation();
+    org.openqa.selenium.Dimension dimensions = element.getSize();
+    return new Point(upperLeft.getX() + dimensions.getWidth()/2, upperLeft.getY() + dimensions.getHeight()/2);
+  }
+
+}

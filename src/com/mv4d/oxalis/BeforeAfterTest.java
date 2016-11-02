@@ -1,0 +1,167 @@
+package com.mv4d.oxalis;
+
+
+// set classpath=D:\Eclipse_enviromen\workspace\Device_calibration1.1(TestNG)\bin;D:\Eclipse_enviromen\workspace\Device_calibration1.1(TestNG)\lib\*
+// java org.testng.TestNG testng.xml
+
+// Section2
+
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+import io.appium.java_client.android.AndroidDriver;
+
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecuteResultHandler;
+import org.apache.commons.exec.DefaultExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.*;
+import Activities.MainScreen;
+
+public class BeforeAfterTest {
+	
+//static WebDriver driver;
+AndroidDriver driver;
+MainScreen objMainScreen;			
+WebDriverWait wait;
+WebElement bOkFailDialog;
+
+
+
+
+
+
+@BeforeTest
+public void beforeTest() throws IOException, InterruptedException {
+
+// Start appium server.
+//appiumStart();	
+
+File classpathRoot = new File(System.getProperty("user.dir"));
+// File appDir = new File(classpathRoot, "D:/Roey/Device_calibration/Device_calibration1.1/Apk/Apps/App1");
+File appDir = new File(classpathRoot, "Apps/App1");
+File app = new File(appDir, "DeviceCalibration.apk");
+DesiredCapabilities capabilities = new DesiredCapabilities();
+capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
+capabilities.setCapability("deviceName", "MantisQA");
+
+// Samsung s6 -(s6_isr_p001) id 04157df4e01f6614     -- ROEY DEVICE (TESTS)
+//  capabilities.setCapability("udid", "04157df4e01f6614");	
+//  capabilities.setCapability("platformVersion", "5.0.2");
+  
+//Samsung s6 -(s6_isr_p001) id 04157df4e01f6614     -- ROEY DEVICE (TESTS) WI-FI
+// capabilities.setCapability("udid", "10.254.254.170:5555");	
+// capabilities.setCapability("platformVersion", "5.0.2");  
+  
+
+// Samsung s6 - id 04157df4e01f3d16
+  capabilities.setCapability("udid", "04157df4e01f3d16");	
+  capabilities.setCapability("platformVersion", "5.0.2");
+
+capabilities.setCapability("platformName", "Android");
+capabilities.setCapability("app", app.getAbsolutePath());
+capabilities.setCapability("appPackage", "com.mv4d.devicecalib");
+capabilities.setCapability("appActivity", "main.SplashActivity");
+
+//How long (in seconds) Appium will wait for a new command 
+// from the client before assuming the client quit and ending the session
+capabilities.setCapability("newCommandTimeout", "320");
+
+// DONT INSTALL THE APK each time.
+//Appium program -> android settings -> no reset checked ... 
+//https://discuss.appium.io/t/why-it-install-app-everytime-if-app-already-there-in-device/3574/5
+capabilities.setCapability("noReset", true);
+capabilities.setCapability("fullReset", false);
+
+driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+wait = new WebDriverWait(driver, 10);
+
+}
+
+
+
+
+@AfterTest
+public void afterTest() throws InterruptedException, IOException {
+// End of Program
+System.out.println("Test is Finished");
+Thread.sleep(2000);
+driver.quit();
+
+// Stop appium server when test Is ended.
+//appiumStop();
+}
+
+
+
+
+
+
+
+//This method Is responsible for starting appium server.
+public void appiumStart() throws IOException, InterruptedException {
+//Created object of apache CommandLine class.
+//It will start command prompt In background.
+CommandLine command = new CommandLine("cmd");
+//Add different arguments In command line which requires to start appium server.
+command.addArgument("/c");
+command.addArgument("D:/Appium/node.exe");
+command.addArgument("D:/Appium/node_modules/appium/bin/Appium.js");
+//Set Server address.
+command.addArgument("--address");
+command.addArgument("127.0.0.1");
+//Set Port.
+command.addArgument("--port");
+command.addArgument("4723");
+command.addArgument("--no-reset");
+// To stop the server log displayed on the console window 
+command.addArgument("--log-level" ,false);
+command.addArgument("error");
+
+// to display the server log displayed on the console window and write it to afile
+//command.addArgument("--log");
+//Set path to store appium server log file.
+//command.addArgument("D://Roey//Device_calibration//AppiumLogs//appiumLogs.txt");
+
+//Execute command line arguments to start appium server.
+DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
+DefaultExecutor executor = new DefaultExecutor();
+executor.setExitValue(1);
+executor.execute(command, resultHandler);
+//Wait for 15 minutes so that appium server can start properly before going for test execution.
+//Increase this time If face any error.
+Thread.sleep(15000);
+}
+
+
+
+//This method Is responsible for stopping appium server.
+public static void appiumStop() throws IOException, InterruptedException {
+// Add different arguments In command line which requires to stop appium server.
+CommandLine command = new CommandLine("cmd");
+command.addArgument("/c");
+command.addArgument("taskkill");
+command.addArgument("/F");
+command.addArgument("/IM");
+command.addArgument("node.exe");
+// Execute command line arguments to stop appium server.
+DefaultExecuteResultHandler resultHandler = new DefaultExecuteResultHandler();
+DefaultExecutor executor = new DefaultExecutor();
+executor.setExitValue(1);
+executor.execute(command, resultHandler);
+Thread.sleep(5000);
+}
+
+
+
+
+
+
+}

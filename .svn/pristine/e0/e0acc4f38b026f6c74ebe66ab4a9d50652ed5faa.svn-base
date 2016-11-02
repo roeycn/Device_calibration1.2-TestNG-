@@ -1,0 +1,163 @@
+package Activities;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+public class MainScreen {
+
+	WebDriver driver;	
+	WebDriverWait wait;
+//	wait = new WebDriverWait(driver, 10);
+
+	
+	// Modes (Radio Buttons)
+	By cameraClibMode = By.id("com.mv4d.devicecalib:id/cameraClibMode");
+	By rigCalibMode = By.id("com.mv4d.devicecalib:id/rigCalibMode");
+	By epiCalibMode = By.id("com.mv4d.devicecalib:id/epiCalibMode");
+	By freeRecMode = By.id("com.mv4d.devicecalib:id/freeRecMode");
+	
+	// Buttons
+	By startStopButton = By.id("com.mv4d.devicecalib:id/startStop_calib_button");
+	By takeCalibCaptureButton = By.id("com.mv4d.devicecalib:id/takeCalibCapture_button");
+	By irColorButton = By.id("com.mv4d.devicecalib:id/ir_color_button");
+	
+	
+	
+		
+	
+public  MainScreen(WebDriver driver){
+this.driver = driver;
+
+}
+
+/*
+public  MainScreen(WebDriverWait driver){
+this.wait = driver;
+}
+*/
+
+	
+//Set cameraClibMode check box 
+public void setCameraClibMode(){
+try{
+	(new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(cameraClibMode));
+	//wait.until(ExpectedConditions.elementToBeClickable(cameraClibMode));	
+	driver.findElement(cameraClibMode).click();
+	System.out.println("cameraClibMode - check box set");	
+	}catch (Exception c){
+	System.out.println("cameraClibMode -> No Element found");
+	Assert.fail();
+	}
+}	
+
+public void setRigCalibMode(){
+try{
+	(new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(rigCalibMode));	
+	driver.findElement(rigCalibMode).click();
+	System.out.println("rigCalibMode - check box set");	
+	}catch (Exception c){
+	System.out.println("rigCalibMode -> No Element found");
+	Assert.fail();
+	}
+}	
+
+
+public void setEpiCalibMode(){
+try{
+	(new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(epiCalibMode));	
+	driver.findElement(epiCalibMode).click();
+	System.out.println("epiCalibMode - check box set");	
+	}catch (Exception c){
+	System.out.println("epiCalibMode -> No Element found");
+	Assert.fail();
+	}
+}
+
+public void setFreeRecMode(){
+try{
+	(new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(freeRecMode));	
+	driver.findElement(freeRecMode).click();
+	System.out.println("freeRecMode - check box set");	
+	}catch (Exception c){
+	System.out.println("freeRecMode -> No Element found");
+	Assert.fail();
+	}
+}
+
+	
+//Get the title of the checkBox
+public String getCheckBox(){
+try{
+	(new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(cameraClibMode));	
+	System.out.println("taking the title of the checkBox");	
+	return driver.findElement(cameraClibMode).getText();	
+	}catch (Exception c){
+	System.out.println("cameraClibMode -> No Element found");
+	return null;
+	}
+}	
+
+//Click startStop_calib_button
+public void clickStartStop_calib_button(){
+try{
+	(new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(startStopButton));
+	driver.findElement(startStopButton).click();
+	System.out.println("startStop_calib_button has been clicked");		
+	}catch (Exception c){
+	System.out.println("startStopButton -> No Element found");
+	}
+}
+
+
+//Click takeCalibCapture_button
+public void clickTakeCalibCapture_button(){
+try{
+	(new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(takeCalibCaptureButton));
+	driver.findElement(takeCalibCaptureButton).click();
+	System.out.println("takeCalibCapture_button has been clicked");		
+	}catch (Exception e){
+	System.out.println("takeCalibCaptureButton -> No Element found");
+	}
+}
+
+
+//Click startStop_calib_button
+public void clickIrColorButton(){
+try {
+	(new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(irColorButton));
+	driver.findElement(irColorButton).click();
+	System.out.println("ir_color_button has been clicked");	
+	}catch (Exception e) {
+		System.out.println("irColorButton -> No Element found");
+	}
+}
+
+
+
+public void Test1() throws InterruptedException{
+
+	//Set check box
+	this.setCameraClibMode();
+	Thread.sleep(2000);
+	//Click startStop_calib_button
+	this.clickStartStop_calib_button();
+	Thread.sleep(2000);
+	//Click takeCalibCapture_button
+	this.clickTakeCalibCapture_button(); 
+	Thread.sleep(2000);
+	//Click startStop_calib_button
+	this.clickStartStop_calib_button();
+	Thread.sleep(2000);
+	}	
+	
+	
+	
+
+	
+	
+	
+}

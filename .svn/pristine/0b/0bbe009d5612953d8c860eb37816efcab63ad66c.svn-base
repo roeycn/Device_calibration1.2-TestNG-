@@ -1,0 +1,151 @@
+package com.mv4d.oxalis;
+
+import io.appium.java_client.MobileDriver;
+import io.appium.java_client.MultiTouchAction;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidKeyCode;
+
+import java.net.MalformedURLException;
+import java.util.HashMap;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.*;
+import Activities.MainScreen;
+
+public class TestCase6Manual extends com.mv4d.oxalis.BeforeAfterTest {
+	
+//static WebDriver driver;
+MainScreen objMainScreen;			
+WebDriverWait wait;
+WebElement bOkFailDialog;
+	
+@Test
+public void testCase6() throws MalformedURLException ,InterruptedException {
+	  
+         System.out.println("Starting Test...");	
+         // wait till oxalis lunch (splash screen is over..)	
+		Thread.sleep(10000);										
+		//Create Activity object
+		objMainScreen = new MainScreen(driver);
+		//Verify button text
+		String buttonText = objMainScreen.getCheckBox();
+		if (buttonText==null){
+			System.out.println("Finishing test- it seems like splash screen is freeze and the app doesnt start");
+			Assert.fail();
+		}
+		
+		
+		objMainScreen.clickAutoManualButton();
+		
+		Thread.sleep(2000);
+	
+		/*
+		List<WebElement> numbers = driver.findElements(By.className("android.widget.NumberPicker"));
+		 for(WebElement number : numbers) {
+	            System.out.println("Number of NumberPickers is: " +number.getTagName());
+	        }
+*/
+
+		
+		
+		 // Select the desired  NumberPicker (from 4 options) by name:
+		 
+//			WebElement row = (WebElement) driver.findElementByName("8");
+//		    WebElement row = (WebElement) driver.findElementByName("1.0");	
+//  	    WebElement row = (WebElement) driver.findElementByName("2.0");
+//			WebElement row = (WebElement) driver.findElementByName("49.5");		
+		    
+		 // Select the desired  NumberPicker (from 4 options) by xpath:
+		 
+		// option 1   ( by index [] )
+		//    WebElement row = (WebElement) driver.findElement(By.xpath("//android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.NumberPicker[1]/android.widget.EditText[1]"));
+		    
+		 
+		// option 2 ( by id + index [] )
+		  //  WebElement row = (WebElement) driver.findElement(By.xpath("//android.widget.LinearLayout[contains(@resource-id,'com.mv4d.devicecalib:id/linearLayoutCurrent')]/android.widget.NumberPicker[1]/android.widget.EditText[1]"));	    
+		    WebElement row = (WebElement) driver.findElement(By.xpath("//android.widget.LinearLayout[contains(@resource-id,'com.mv4d.devicecalib:id/linearLayoutCurrent')]/android.widget.NumberPicker[1]/android.widget.EditText[contains(@resource-id,'android:id/numberpicker_input')]"));
+		    
+		 	        
+			Point Gainlocation = row.getLocation();
+		    Point Gaincenter = getCenter(row);
+		    
+		    
+		    System.out.println("Gainlocation: "+Gainlocation );
+		    System.out.println("center:  "+Gaincenter );
+	    
+		  // to fit all screens
+		    Dimension rowSize = row.getSize();
+		    System.out.println("Dimension:  "+rowSize );
+		   		    
+		  //perform swipe gesture
+		    System.out.println("perform swipe gesture1.. ");   
+		    driver.swipe(Gaincenter.getX(), Gaincenter.getY(), Gaincenter.getX(), Gaincenter.getY()+rowSize.height*2, 800);
+		    Thread.sleep(3000);
+		    driver.swipe(Gaincenter.getX(), Gaincenter.getY(), Gaincenter.getX(), Gaincenter.getY()-rowSize.height*2, 800);
+		    Thread.sleep(3000);
+			    
+		  
+		    
+		  //perform swipe gesture
+		    System.out.println("perform swipe gesture2.. ");   
+		    driver.swipe(Gaincenter.getX(), Gaincenter.getY(), Gaincenter.getX(), Gaincenter.getY()+rowSize.height*2, 800);
+		    Thread.sleep(3000);
+		    driver.swipe(Gaincenter.getX(), Gaincenter.getY(), Gaincenter.getX(), Gaincenter.getY()-rowSize.height*2, 800);
+		    Thread.sleep(3000);  
+		    
+		    
+		    
+		    
+		    
+		    
+	
+		  //Perform MultiTouch Action     	    
+		  // Create object of MultiTouchAction class.
+	
+		    
+		    
+		  
+		  
+		    
+		    
+}
+
+
+		
+		    
+/*		    
+	    int y=-300;
+	    int counter = 0 ;		    
+			   for (counter=1 ; counter<10 ; counter++){   			  
+				   System.out.println("perform swipe gesture number: " + counter);
+				    driver.swipe(Gaincenter.getX(), Gaincenter.getY(), Gaincenter.getX(), Gaincenter.getY()+y, 0);
+				    Thread.sleep(500);				   		   
+				    if (counter%4==0 && counter%8!=0){
+				    	y=300;
+				    	System.out.println("changing direction");				 		 
+					 }
+				    if (counter%8==0){
+						 y=-300;
+						 System.out.println("changing direction");								 
+					 }    		    		    
+		    Thread.sleep(2000);	
+			   }			   
+ 
+  */
+		    
+		    
+
+public Point getCenter(WebElement element) {
+    Point upperLeft = element.getLocation();
+    org.openqa.selenium.Dimension dimensions = element.getSize();
+    return new Point(upperLeft.getX() + dimensions.getWidth()/2, upperLeft.getY() + dimensions.getHeight()/2);
+  }
+
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="138919" started-at="2016-10-18T08:36:20Z" finished-at="2016-10-18T08:38:39Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="138919" started-at="2016-10-18T08:36:20Z" finished-at="2016-10-18T08:38:39Z">
+      <class name="com.mv4d.oxalis.TestCase6Manual">
+        <test-method status="PASS" signature="beforeTest()[pri:0, instance:com.mv4d.oxalis.TestCase6Manual@4b9e13df]" name="beforeTest" is-config="true" duration-ms="17344" started-at="2016-10-18T11:36:20Z" finished-at="2016-10-18T11:36:38Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeTest -->
+        <test-method status="PASS" signature="testCase6()[pri:0, instance:com.mv4d.oxalis.TestCase6Manual@4b9e13df]" name="testCase6" duration-ms="117624" started-at="2016-10-18T11:36:38Z" finished-at="2016-10-18T11:38:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCase6 -->
+        <test-method status="PASS" signature="afterTest()[pri:0, instance:com.mv4d.oxalis.TestCase6Manual@4b9e13df]" name="afterTest" is-config="true" duration-ms="3937" started-at="2016-10-18T11:38:35Z" finished-at="2016-10-18T11:38:39Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterTest -->
+      </class> <!-- com.mv4d.oxalis.TestCase6Manual -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test name="Test1">
+    <classes>
+      <class name="com.mv4d.oxalis.TestCase1Camera"/>
+    </classes>
+  </test> <!-- Test -->
+  <test name="Test2">
+    <classes>
+      <class name="com.mv4d.oxalis.TestCase2Rig"/>
+    </classes>
+  </test> <!-- Test -->
+    <test name="Test3">
+    <classes>
+      <class name="com.mv4d.oxalis.TestCase3Epi"/>
+    </classes>
+  </test> <!-- Test -->
+  <test name="Test4">
+    <classes>
+      <class name="com.mv4d.oxalis.TestCase4Free"/>
+    </classes>
+  </test> <!-- Test -->
+  <test name="Test5">
+    <classes>
+      <class name="com.mv4d.oxalis.TestCase5Camera_10Frames"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
